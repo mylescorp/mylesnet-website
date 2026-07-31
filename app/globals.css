@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-net-primary: #F57C00;
+  --color-net-primary-light: #FB8C00;
+  --color-net-primary-dark: #E65100;
+  --color-net-accent: #1A395B;
+  --color-net-accent-dark: #0E2236;
+  --color-net-surface: #FFF3E0;
+  --color-net-border: #FFD0A0;
+  --color-net-success: #1B5E20;
+  --color-net-success-surface: #E8F5E9;
+  --color-net-warning: #F57F17;
+  --color-net-warning-surface: #FFFDE7;
+  --color-net-danger: #C62828;
+  --color-net-danger-surface: #FFEBEE;
+  --color-net-neutral-50: #FAFAFA;
+  --color-net-neutral-100: #F5F5F5;
+  --color-net-neutral-600: #57534E;
+  --color-net-neutral-800: #292524;
+  --color-net-neutral-900: #1C1917;
+  --font-heading: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--color-net-neutral-50); color: var(--color-net-neutral-900); font-family: var(--font-body), sans-serif; }
+button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--color-net-primary); outline-offset: 3px; }
