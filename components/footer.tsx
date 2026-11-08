@@ -11,14 +11,14 @@ export function Footer() {
       <div className="mn-footer-inner">
         <div className="mn-footer-prompt">
           <div>
-            <p className="mn-footer-eyebrow">Need a little guidance?</p>
-            <h2>Let’s find the right connection.</h2>
-            <p>Tell us where you are and what you need. We can confirm availability and talk through your options.</p>
+            <p className="mn-footer-eyebrow">A clearer next step</p>
+            <h2>Let’s talk about what you need.</h2>
+            <p>Share your area and the service you have in mind. We’ll help confirm availability, requirements, and what to do next.</p>
           </div>
-          <Link href="/contact" className="mn-footer-cta">Contact MylesNet <ArrowRight aria-hidden="true" /></Link>
+          <Link href="/contact" className="mn-footer-cta">Talk with MylesNet <ArrowRight aria-hidden="true" /></Link>
         </div>
 
-        <div className="mn-footer-grid">
+        <div className={`mn-footer-grid${hasDirectContact ? " has-contact" : ""}`}>
           <div className="mn-footer-brand">
             <div className="mn-footer-logo"><Brand compact /></div>
             <p>Internet access and network services, clearly explained and planned around your needs.</p>
