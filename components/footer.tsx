@@ -1,17 +1,52 @@
+import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin, Music2, Twitter, Youtube } from "lucide-react";
 import { Brand } from "@/components/brand";
-import { contact, footerGroups, phoneUrl, socialLinks, whatsappUrl } from "@/lib/site";
-
-const socialIcons = { LinkedIn: Linkedin, Facebook, Twitter, YouTube: Youtube, Instagram, TikTok: Music2 } as const;
+import { contact, footerGroups, phoneUrl, whatsappUrl } from "@/lib/site";
 
 export function Footer() {
-  return <footer className="border-t border-net-border bg-net-accent-dark">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:px-6 lg:grid-cols-[1.3fr_2fr_1fr] lg:px-8 lg:py-16">
-      <div><Brand compact /><p className="mt-4 max-w-sm text-sm leading-6 text-net-footer-text/75">Internet access, local installation, and network services with clear next steps.</p><div className="mt-5 flex gap-2">{socialLinks.map((social) => { const Icon = socialIcons[social.label]; return <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={`Follow MylesCorp on ${social.label}`} className="flex size-10 items-center justify-center rounded-full border border-net-footer-text/20 text-net-footer-text/80 hover:border-net-primary hover:bg-net-primary hover:text-net-on-action"><Icon className="size-4" aria-hidden="true" /></a>; })}</div></div>
-      <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">{footerGroups.map((group) => <div key={group.title}><h2 className="font-heading text-sm font-bold uppercase tracking-wider text-net-footer-text/65">{group.title}</h2><div className="mt-4 grid gap-3">{group.links.map((link) => <Link key={link.href} href={link.href} className="text-sm text-net-footer-text/80 hover:text-net-primary">{link.label}</Link>)}</div></div>)}</div>
-      <div><h2 className="font-heading text-sm font-bold uppercase tracking-wider text-net-footer-text/65">Talk to us</h2><div className="mt-4 grid gap-3 text-sm text-net-footer-text/80"><a href={phoneUrl} className="hover:text-net-primary">Call {contact.phone || "MylesNet"}</a>{contact.email ? <a href={`mailto:${contact.email}`} className="break-all hover:text-net-primary">Email MylesNet</a> : null}<a href={whatsappUrl} className="hover:text-net-primary">WhatsApp MylesNet</a></div><Link href="/contact" className="mt-5 inline-flex rounded-lg bg-net-primary px-4 py-3 text-sm font-bold text-net-on-action hover:bg-net-primary-dark">Send an enquiry</Link></div>
-    </div>
-    <div className="border-t border-net-border px-5 py-5 text-center text-xs text-net-neutral-600">© {new Date().getFullYear()} <a href="https://mylescorptech.com/" target="_blank" rel="noopener noreferrer" className="font-semibold underline">MylesCorp Technologies Ltd</a>. All rights reserved. <span className="mx-2">·</span><Link href="/terms" className="underline">Terms</Link><span className="mx-2">·</span><Link href="/privacy" className="underline">Privacy</Link></div>
-  </footer>;
+  const hasDirectContact = Boolean(contact.phone || contact.email || contact.whatsappNumber);
+
+  return (
+    <footer className="mn-footer">
+      <div className="mn-footer-inner">
+        <div className="mn-footer-prompt">
+          <div>
+            <p className="mn-footer-eyebrow">Need a little guidance?</p>
+            <h2>Let’s find the right connection.</h2>
+            <p>Tell us where you are and what you need. We can confirm availability and talk through your options.</p>
+          </div>
+          <Link href="/contact" className="mn-footer-cta">Contact MylesNet <ArrowRight aria-hidden="true" /></Link>
+        </div>
+
+        <div className="mn-footer-grid">
+          <div className="mn-footer-brand">
+            <div className="mn-footer-logo"><Brand compact /></div>
+            <p>Internet access and network services, clearly explained and planned around your needs.</p>
+            <p className="mn-footer-location"><MapPin aria-hidden="true" /> Hotspot access in Tayari and Mundindi Markets</p>
+          </div>
+
+          {footerGroups.map((group) => (
+            <div className="mn-footer-group" key={group.title}>
+              <h2>{group.title}</h2>
+              <ul>{group.links.map((link) => <li key={link.href}><Link href={link.href}>{link.label}</Link></li>)}</ul>
+            </div>
+          ))}
+
+          {hasDirectContact ? <div className="mn-footer-group mn-footer-contact">
+            <h2>Talk to us</h2>
+            <ul>
+              {contact.phone ? <li><a href={phoneUrl}><Phone aria-hidden="true" />Call {contact.phone}</a></li> : null}
+              {contact.email ? <li><a href={`mailto:${contact.email}`}><Mail aria-hidden="true" />Email MylesNet</a></li> : null}
+              {contact.whatsappNumber ? <li><a href={whatsappUrl}><MessageCircle aria-hidden="true" />WhatsApp MylesNet</a></li> : null}
+            </ul>
+          </div> : null}
+        </div>
+
+        <div className="mn-footer-bottom">
+          <span>© {new Date().getFullYear()} <a href="https://mylescorptech.com/" target="_blank" rel="noopener noreferrer">MylesCorp Technologies Ltd</a>. All rights reserved.</span>
+          <div><Link href="/terms">Terms</Link><Link href="/privacy">Privacy</Link></div>
+        </div>
+      </div>
+    </footer>
+  );
 }

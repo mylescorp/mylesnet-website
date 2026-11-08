@@ -86,3 +86,165 @@ button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* Shared site chrome: explicit rules keep its responsive behavior reliable. */
+.mn-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--background) 94%, transparent);
+  backdrop-filter: blur(16px);
+}
+
+.mn-header-row {
+  width: min(100% - 40px, 1240px);
+  min-height: 76px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 30px);
+}
+
+.mn-header-brand { flex: 0 0 auto; }
+.mn-navigation { margin-left: auto; display: flex; align-items: center; gap: 3px; }
+.mn-nav-link,
+.mn-nav-group > summary {
+  min-height: 44px;
+  padding: 10px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--brand-primary);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.25;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.mn-nav-link:hover,
+.mn-nav-group > summary:hover,
+.mn-nav-group[open] > summary,
+.mn-nav-link.is-current,
+.mn-nav-group.is-current > summary { background: var(--surface-raised); }
+.mn-nav-group { position: relative; }
+.mn-nav-group > summary { list-style: none; }
+.mn-nav-group > summary::-webkit-details-marker { display: none; }
+.mn-nav-chevron { width: 15px; height: 15px; transition: transform 140ms ease; }
+.mn-nav-group[open] .mn-nav-chevron { transform: rotate(180deg); }
+.mn-nav-submenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 2;
+  min-width: 244px;
+  padding: 8px;
+  display: grid;
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 14px 36px rgb(14 34 54 / 14%);
+}
+
+.mn-nav-submenu .mn-nav-link { justify-content: flex-start; white-space: normal; }
+.mn-header-actions { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; }
+.mn-header-cta {
+  min-height: 46px;
+  padding: 12px 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: var(--brand-action);
+  color: var(--on-action);
+  font-size: 14px;
+  font-weight: 750;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 140ms ease, transform 140ms ease;
+}
+
+.mn-header-cta:hover { background: var(--action-hover); transform: translateY(-1px); }
+.mn-header-actions > button { width: 44px; height: 44px; min-height: 44px; border-radius: 9px; }
+.mn-menu-toggle { display: none; align-items: center; justify-content: center; border: 1px solid var(--border); background: var(--surface); color: var(--brand-primary); cursor: pointer; }
+.mn-menu-toggle svg { width: 20px; height: 20px; }
+
+.mn-footer {
+  border-top: 1px solid var(--border);
+  background: var(--footer-background);
+  color: var(--footer-text);
+}
+
+.mn-footer-inner { width: min(100% - 40px, 1240px); margin-inline: auto; padding-top: 40px; }
+.mn-footer-prompt {
+  margin-bottom: 44px;
+  padding: 28px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  border: 1px solid color-mix(in srgb, var(--footer-text) 16%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--footer-text) 5%, transparent);
+}
+
+.mn-footer-eyebrow { margin: 0 0 8px; color: var(--brand-action); font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.mn-footer-prompt h2 { margin: 0; color: var(--footer-text); font-family: var(--font-heading); font-size: clamp(23px, 3vw, 30px); font-weight: 700; line-height: 1.2; }
+.mn-footer-prompt > div > p:last-child { max-width: 610px; margin: 9px 0 0; color: color-mix(in srgb, var(--footer-text) 76%, transparent); font-size: 14px; line-height: 1.65; }
+.mn-footer-cta { flex: 0 0 auto; min-height: 48px; padding: 12px 16px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 9px; background: var(--brand-action); color: var(--on-action); font-size: 14px; font-weight: 750; text-decoration: none; }
+.mn-footer-cta svg { width: 17px; height: 17px; }
+.mn-footer-cta:hover { background: var(--action-hover); }
+.mn-footer-grid { padding-bottom: 40px; display: grid; grid-template-columns: 1.35fr repeat(3, minmax(130px, 1fr)) minmax(160px, 1.1fr); gap: clamp(24px, 3.2vw, 46px); }
+.mn-footer-brand { max-width: 260px; }
+.mn-footer-logo { width: fit-content; padding: 4px 8px; border-radius: 7px; background: #fff; }
+.mn-footer-brand > p { margin: 15px 0 0; color: color-mix(in srgb, var(--footer-text) 75%, transparent); font-size: 13px; line-height: 1.7; }
+.mn-footer-brand > .mn-footer-location { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; }
+.mn-footer-location svg { width: 16px; height: 16px; flex: 0 0 auto; color: var(--brand-accent); }
+.mn-footer-group h2 { margin: 3px 0 16px; color: color-mix(in srgb, var(--footer-text) 66%, transparent); font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.mn-footer-group ul { margin: 0; padding: 0; display: grid; align-content: start; gap: 12px; list-style: none; }
+.mn-footer-group li,
+.mn-footer-group a { color: color-mix(in srgb, var(--footer-text) 86%, transparent); font-size: 13px; line-height: 1.5; text-decoration: none; }
+.mn-footer-group a { display: inline-flex; align-items: flex-start; gap: 8px; }
+.mn-footer-group a:hover { color: var(--footer-text); text-decoration: underline; text-decoration-color: var(--brand-action); text-underline-offset: 4px; }
+.mn-footer-contact li svg { width: 15px; height: 15px; margin-top: 1px; flex: 0 0 auto; color: var(--brand-accent); }
+.mn-footer-bottom { min-height: 60px; padding-block: 15px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid color-mix(in srgb, var(--footer-text) 15%, transparent); color: color-mix(in srgb, var(--footer-text) 66%, transparent); font-size: 11px; line-height: 1.5; }
+.mn-footer-bottom a { color: inherit; text-underline-offset: 3px; }
+.mn-footer-bottom > div { display: flex; gap: 20px; }
+
+@media (max-width: 68rem) {
+  .mn-header-row { min-height: 68px; flex-wrap: wrap; gap: 0; padding-block: 8px; }
+  .mn-header-brand { margin-right: auto; }
+  .mn-navigation { order: 3; width: 100%; margin: 0; padding: 10px 0 4px; display: none; align-items: stretch; flex-direction: column; gap: 3px; }
+  .mn-navigation[data-open="true"] { display: flex; }
+  .mn-nav-link,
+  .mn-nav-group > summary { width: 100%; min-height: 46px; padding: 12px 13px; justify-content: space-between; }
+  .mn-nav-group { width: 100%; }
+  .mn-nav-submenu { position: static; min-width: 0; margin: 3px 0 6px; padding: 4px 7px 6px 14px; border: 0; border-left: 2px solid var(--border); border-radius: 0; background: transparent; box-shadow: none; }
+  .mn-header-cta { min-height: 44px; padding-inline: 14px; }
+  .mn-menu-toggle { display: inline-flex; }
+  .mn-footer-inner { padding-top: 30px; }
+  .mn-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 24px; }
+  .mn-footer-brand { max-width: 340px; }
+}
+
+@media (max-width: 40rem) {
+  .mn-header-row,
+  .mn-footer-inner { width: min(100% - 32px, 1240px); }
+  .mn-header-row { min-height: 64px; }
+  .mn-header-actions { gap: 5px; }
+  .mn-header-cta { min-height: 42px; padding-inline: 12px; font-size: 13px; }
+  .mn-header-actions > button,
+  .mn-menu-toggle { width: 42px; height: 42px; min-height: 42px; }
+  .mn-footer-prompt { margin-bottom: 32px; padding: 22px 20px; align-items: flex-start; flex-direction: column; gap: 18px; }
+  .mn-footer-grid { padding-bottom: 30px; gap: 26px 18px; }
+  .mn-footer-group h2 { margin-bottom: 12px; }
+  .mn-footer-group ul { gap: 10px; }
+  .mn-footer-bottom { align-items: flex-start; flex-direction: column; gap: 10px; }
+}

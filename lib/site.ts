@@ -29,7 +29,7 @@ export const navigation = [
 export const footerGroups = [
   { title: "Internet", links: [{ href: "/internet", label: "Hotspot & home internet" }, { href: "/pricing", label: "Hotspot vouchers" }, { href: "/where-we-are", label: "Where we are" }, { href: "/support", label: "Customer support" }] },
   { title: "Services", links: [{ href: "/business-institutions", label: "Business & institutions" }, { href: "/cctv", label: "CCTV installation" }, { href: "/for-isps", label: "MylesNet Managed" }, { href: "/partners", label: "Partners" }] },
-  { title: "Company", links: [{ href: "/about", label: "About MylesNet" }, { href: "/advertise", label: "Advertise with us" }, { href: "/faq", label: "FAQs" }, { href: "/contact", label: "Contact" }, { href: "/terms", label: "Terms" }, { href: "/privacy", label: "Privacy" }] },
+  { title: "Company", links: [{ href: "/about", label: "About MylesNet" }, { href: "/advertise", label: "Advertise with us" }, { href: "/faq", label: "FAQs" }] },
 ] as const;
 
 export const socialLinks = [

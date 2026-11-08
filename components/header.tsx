@@ -1,34 +1,56 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Brand } from "@/components/brand";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { centipidPortalUrl, navigation, portalEnabled, whatsappUrl } from "@/lib/site";
+import { centipidPortalUrl, portalEnabled } from "@/lib/site";
+
+const serviceLinks = [
+  { href: "/business-institutions", label: "Business & institutions" },
+  { href: "/cctv", label: "CCTV installation" },
+  { href: "/for-isps", label: "For ISPs" },
+  { href: "/partners", label: "Partners" },
+] as const;
 
 export function Header() {
-  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const [openPath, setOpenPath] = useState<string | null>(null);
+  const open = openPath === pathname;
 
-  return <header className="sticky top-0 z-50 border-b border-net-border bg-net-neutral-50/95 backdrop-blur">
-    <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:px-6 lg:px-8">
-      <Brand compact />
-      <nav className="hidden items-center gap-3 xl:flex" aria-label="Main navigation">
-        {navigation.map((item) => <Link key={item.href} href={item.href} className="whitespace-nowrap rounded-lg px-2 py-2 text-sm font-semibold text-net-accent hover:bg-net-surface">{item.label}</Link>)}
-      </nav>
-      <div className="hidden items-center gap-2 xl:flex">
-        {portalEnabled ? <Link href="/portal" className="whitespace-nowrap rounded-lg border border-net-border px-3 py-2.5 text-sm font-semibold text-net-accent hover:bg-net-surface">MylesNet portal</Link> : null}
-        {centipidPortalUrl ? <a href={centipidPortalUrl} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap rounded-lg border border-net-border px-3 py-2.5 text-sm font-semibold text-net-accent hover:bg-net-surface">Customer portal</a> : null}
-        <a href={whatsappUrl} className="whitespace-nowrap rounded-lg bg-net-primary px-4 py-3 text-sm font-bold text-net-on-action hover:bg-net-primary-dark">Talk to MylesNet</a>
-        <ThemeToggle />
+  const isCurrent = (href: string) => pathname === href || (href === "/internet" && pathname === "/pricing");
+  const linkClass = (href: string) => `mn-nav-link${isCurrent(href) ? " is-current" : ""}`;
+
+  return (
+    <header className="mn-header">
+      <div className="mn-header-row">
+        <div className="mn-header-brand"><Brand compact /></div>
+
+        <nav id="main-navigation" key={pathname} className="mn-navigation" data-open={open} aria-label="Main navigation">
+          <Link href="/internet" className={linkClass("/internet")} aria-current={isCurrent("/internet") ? "page" : undefined} onClick={() => setOpenPath(null)}>Internet</Link>
+          <Link href="/where-we-are" className={linkClass("/where-we-are")} aria-current={isCurrent("/where-we-are") ? "page" : undefined} onClick={() => setOpenPath(null)}>Coverage</Link>
+          <details className={`mn-nav-group${serviceLinks.some((item) => isCurrent(item.href)) ? " is-current" : ""}`}>
+            <summary>Services <ChevronDown className="mn-nav-chevron" aria-hidden="true" /></summary>
+            <div className="mn-nav-submenu">
+              {serviceLinks.map((item) => <Link key={item.href} href={item.href} className={linkClass(item.href)} aria-current={isCurrent(item.href) ? "page" : undefined} onClick={() => setOpenPath(null)}>{item.label}</Link>)}
+            </div>
+          </details>
+          <Link href="/support" className={linkClass("/support")} aria-current={isCurrent("/support") ? "page" : undefined} onClick={() => setOpenPath(null)}>Support</Link>
+          <Link href="/about" className={linkClass("/about")} aria-current={isCurrent("/about") ? "page" : undefined} onClick={() => setOpenPath(null)}>About</Link>
+          {portalEnabled ? <Link href="/portal" className={linkClass("/portal")} aria-current={isCurrent("/portal") ? "page" : undefined} onClick={() => setOpenPath(null)}>Portal</Link> : null}
+          {centipidPortalUrl ? <a href={centipidPortalUrl} target="_blank" rel="noopener noreferrer" className="mn-nav-link" onClick={() => setOpenPath(null)}>Customer access<span className="sr-only"> (opens in a new tab)</span></a> : null}
+        </nav>
+
+        <div className="mn-header-actions">
+          <Link href="/contact" className="mn-header-cta">Contact us</Link>
+          <ThemeToggle />
+          <button type="button" className="mn-menu-toggle" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="main-navigation" onClick={() => setOpenPath(open ? null : pathname)}>
+            {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </button>
+        </div>
       </div>
-      <div className="flex items-center gap-2 xl:hidden"><ThemeToggle /><button type="button" className="flex size-12 items-center justify-center rounded-lg text-net-accent hover:bg-net-surface" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen((value) => !value)}>{open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button></div>
-    </div>
-    <nav className={`${open ? "grid" : "hidden"} gap-1 border-t border-net-border bg-net-neutral-50 px-4 py-3 xl:hidden`} aria-label="Mobile navigation">
-      {navigation.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 font-semibold text-net-accent hover:bg-net-surface">{item.label}</Link>)}
-      {portalEnabled ? <Link href="/portal" onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 font-semibold text-net-accent hover:bg-net-surface">MylesNet portal</Link> : null}
-      {centipidPortalUrl ? <a href={centipidPortalUrl} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-3 font-semibold text-net-accent hover:bg-net-surface">Customer portal</a> : null}
-      <a href={whatsappUrl} className="mt-1 rounded-lg bg-net-primary px-3 py-3 text-center font-bold text-net-on-action">Talk to MylesNet</a>
-    </nav>
-  </header>;
+    </header>
+  );
 }
