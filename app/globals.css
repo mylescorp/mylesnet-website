@@ -234,7 +234,7 @@ button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
 .mn-footer-brand > p { margin: 14px 0 0; color: color-mix(in srgb, var(--footer-text) 75%, transparent); font-size: 13px; line-height: 1.7; }
 .mn-footer-brand > .mn-footer-location { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; }
 .mn-footer-location svg { width: 16px; height: 16px; flex: 0 0 auto; color: var(--brand-accent); }
-.mn-footer-group h2 { margin: 3px 0 13px; color: var(--footer-text); font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.mn-footer-group h2 { margin: 3px 0 13px; color: var(--brand-action); font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .mn-footer-group ul { margin: 0; padding: 0; display: grid; align-content: start; gap: 3px; list-style: none; }
 .mn-footer-group li,
 .mn-footer-group a { color: color-mix(in srgb, var(--footer-text) 86%, transparent); font-size: 13px; line-height: 1.5; text-decoration: none; }

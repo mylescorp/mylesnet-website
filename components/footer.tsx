@@ -3,6 +3,12 @@ import Link from "next/link";
 import { Brand } from "@/components/brand";
 import { contact, footerGroups, phoneUrl, whatsappUrl } from "@/lib/site";
 
+const footerHeadings: Record<(typeof footerGroups)[number]["title"], string> = {
+  Internet: "Get online",
+  Services: "Plan a service",
+  Company: "About MylesNet",
+};
+
 export function Footer() {
   const hasDirectContact = Boolean(contact.phone || contact.email || contact.whatsappNumber);
 
@@ -29,12 +35,12 @@ export function Footer() {
         <div className={`mn-footer-grid${hasDirectContact ? " has-contact" : ""}`}>
           <div className="mn-footer-brand">
             <div className="mn-footer-logo"><Brand compact /></div>
-            <p>Local hotspot access and site-planned connectivity services from MylesNet.</p>
+            <p>From marketplace Wi-Fi to site-planned links and installations, each request starts with a direct availability check.</p>
           </div>
 
           {footerGroups.map((group) => (
             <div className="mn-footer-group" key={group.title}>
-              <h2>{group.title}</h2>
+              <h2>{footerHeadings[group.title]}</h2>
               <ul>{group.links.map((link) => <li key={link.href}><Link href={link.href}>{link.label}</Link></li>)}</ul>
             </div>
           ))}
