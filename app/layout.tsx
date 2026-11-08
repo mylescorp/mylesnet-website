@@ -18,5 +18,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body className={`${body.variable} ${heading.variable}`}><Header /><main>{children}</main><Footer /><Analytics /></body></html>;
+  const themeScript = `(()=>{try{const saved=localStorage.getItem('mylesnet-theme');const system=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=saved==='dark'||saved==='light'?saved:system}catch{document.documentElement.dataset.theme='light'}})()`;
+  return <html lang="en" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head><body className={`${body.variable} ${heading.variable}`}><Header /><main>{children}</main><Footer /><Analytics /></body></html>;
 }

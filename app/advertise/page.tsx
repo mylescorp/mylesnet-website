@@ -1,0 +1,8 @@
+import type { Metadata } from "next";
+import { ServicePage } from "@/components/service-page";
+
+export const metadata: Metadata = { title: "Advertise with MylesNet", description: "Ask about local advertising opportunities with MylesNet." };
+
+export default function AdvertisePage() {
+  return <ServicePage eyebrow="Local business enquiries" title="Ask about reaching customers through MylesNet." intro="Register interest in advertising with MylesNet. We will confirm whether an appropriate placement is available and what its audience, format, timing, and terms are." audience="Hotspot login-page advertising inventory, audience figures, pricing, placement dates, and campaign reporting have not been confirmed for public sale." outcomes={[{ title: "Tell us about your business", description: "Share what you offer and the locations or customer groups you want to reach." }, { title: "Discuss possible placement", description: "If inventory is available, the team can explain the format and campaign terms." }]} process={["Send a short description of the business and campaign.", "The team confirms whether a placement is currently available.", "Review the audience, price, dates, and terms before committing."]} caveat="This form records interest only. It does not guarantee audience reach, inventory, campaign performance, or a booking." formTitle="Register advertising interest" formIntro="Share enough detail for us to assess your enquiry. Please do not submit customer lists or private campaign data." source="advertising" services={["Local business promotion", "Hotspot login-page placement", "Community campaign", "Other"]} showOrganization showTimeline />;
+}

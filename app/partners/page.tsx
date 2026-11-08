@@ -1,0 +1,8 @@
+import type { Metadata } from "next";
+import { ServicePage } from "@/components/service-page";
+
+export const metadata: Metadata = { title: "Partner with MylesNet", description: "Register interest in working with MylesNet as an agent, reseller, or service partner." };
+
+export default function PartnersPage() {
+  return <ServicePage eyebrow="Partner enquiries" title="Interested in working with MylesNet?" intro="Tell us about your location, experience, and the kind of partnership you would like to discuss." audience="Partner availability, responsibilities, commission, customer handling, and onboarding terms are not published until they are confirmed." outcomes={[{ title: "Local agents", description: "Register interest in helping customers discover MylesNet services in an area." }, { title: "Resellers", description: "Discuss whether a reseller arrangement or service partnership fits your business." }, { title: "Technical partners", description: "Tell us about installation or support capacity that may be relevant to future work." }]} process={["Share your contact details and the area you serve.", "Tell us the kind of partnership and experience you bring.", "The team reviews your interest and follows up if there is a fit."]} caveat="Submitting an enquiry does not appoint you as an agent or create a commission agreement. Written terms must be agreed first." formTitle="Register partnership interest" formIntro="We will use your details to review and follow up on this partnership enquiry." source="partner-application" services={["Local agent", "Voucher reseller", "Installation partner", "Technology partner", "Other"]} showOrganization showTimeline />;
+}
