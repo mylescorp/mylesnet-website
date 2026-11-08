@@ -1,4 +1,4 @@
-import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, MessageCircle, Phone, Wifi } from "lucide-react";
 import Link from "next/link";
 import { Brand } from "@/components/brand";
 import { contact, footerGroups, phoneUrl, whatsappUrl } from "@/lib/site";
@@ -11,18 +11,25 @@ export function Footer() {
       <div className="mn-footer-inner">
         <div className="mn-footer-prompt">
           <div>
-            <p className="mn-footer-eyebrow">A clearer next step</p>
-            <h2>Let’s talk about what you need.</h2>
-            <p>Share your area and the service you have in mind. We’ll help confirm availability, requirements, and what to do next.</p>
+            <p className="mn-footer-eyebrow">MYLESNET · LOCAL CONNECTIVITY</p>
+            <h2>Connecting communities,<br />one mile at a time.</h2>
+            <p>Hotspot Wi-Fi is currently confirmed in Tayari and Mundindi Markets. Home, business, installation, and network services start with an area or site check.</p>
+            <div className="mn-footer-service-line">
+              <span><Wifi aria-hidden="true" />Hotspot Wi-Fi</span>
+              <span><MapPin aria-hidden="true" />Tayari · Mundindi</span>
+              <span>Vouchers in UGX, paid in person</span>
+            </div>
           </div>
-          <Link href="/contact" className="mn-footer-cta">Talk with MylesNet <ArrowRight aria-hidden="true" /></Link>
+          <div className="mn-footer-prompt-actions">
+            <Link href="/where-we-are" className="mn-footer-cta">Check your area <ArrowRight aria-hidden="true" /></Link>
+            <Link href="/contact" className="mn-footer-contact-link">Ask about a service</Link>
+          </div>
         </div>
 
         <div className={`mn-footer-grid${hasDirectContact ? " has-contact" : ""}`}>
           <div className="mn-footer-brand">
             <div className="mn-footer-logo"><Brand compact /></div>
-            <p>Internet access and network services, clearly explained and planned around your needs.</p>
-            <p className="mn-footer-location"><MapPin aria-hidden="true" /> Hotspot access in Tayari and Mundindi Markets</p>
+            <p>Local hotspot access and site-planned connectivity services from MylesNet.</p>
           </div>
 
           {footerGroups.map((group) => (
