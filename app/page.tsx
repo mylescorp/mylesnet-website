@@ -1,24 +1,104 @@
-import { ArrowRight, CircleDollarSign, Router, Signal, Smartphone, Wifi } from "lucide-react";
+import type { Metadata } from "next";
+import { ArrowRight, Building2, Camera, Check, Home, MapPin, Network, ShieldCheck, Wifi } from "lucide-react";
 import Link from "next/link";
-import { CoverageMap } from "@/components/coverage-map";
-import { PricingCards } from "@/components/pricing-cards";
-import { SectionHeading } from "@/components/section-heading";
-import { contact, phoneUrl, whatsappUrl } from "@/lib/site";
 
-const problems = [
-  ["Clear access", "Connect to MylesNet and use your voucher code when prompted."],
-  ["Clear payment", "Buy your voucher in person with cash or Airtel Money."],
-  ["Clear support", "Speak to the MylesNet team when you need help or availability information."],
+export const metadata: Metadata = {
+  title: "Internet, installations and network services",
+  description: "MylesNet provides hotspot access, connectivity installations, CCTV, and network services. Check coverage or request a survey.",
+};
+
+const services = [
+  { icon: Wifi, number: "01", title: "Hotspot internet", text: "Straightforward WiFi access, with clear voucher pricing and in-person payment.", href: "/internet", action: "Explore internet" },
+  { icon: Building2, number: "02", title: "Business & institutions", text: "Plan WiFi and wired connectivity around your workplace, school, or facility.", href: "/business-institutions", action: "Plan a site visit" },
+  { icon: Camera, number: "03", title: "CCTV installation", text: "Talk through camera placement, recording, cabling, and your property needs.", href: "/cctv", action: "Explore CCTV" },
+  { icon: ShieldCheck, number: "04", title: "Network services", text: "Discuss managed network support and service options for internet providers.", href: "/for-isps", action: "Explore network services" },
 ] as const;
 
 export default function HomePage() {
-  return <>
-    <section className="overflow-hidden bg-net-surface"><div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 sm:py-20 lg:grid-cols-[1.2fr_.8fr] lg:py-28"><div><div className="inline-flex items-center gap-2 rounded-full border border-net-border bg-white px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-net-accent"><Wifi className="size-4 text-net-primary" aria-hidden="true" /> MylesNet WiFi</div><h1 className="mt-6 max-w-3xl font-heading text-4xl font-bold tracking-tight text-net-accent sm:text-6xl">Straightforward WiFi. Clear pricing. Direct support.</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-net-neutral-600">MylesNet makes it simple to purchase access in person, get connected with a voucher, and reach support when you need it.</p><div className="mt-8 flex flex-wrap gap-3"><Link href="/pricing" className="rounded-xl bg-net-primary px-6 py-3 font-bold text-white hover:bg-net-primary-dark">View voucher pricing</Link><a href={whatsappUrl} className="rounded-xl border-2 border-net-accent px-6 py-3 font-bold text-net-accent hover:bg-white">Contact support</a></div></div><aside className="rounded-[2rem] bg-net-accent p-7 text-white shadow-xl"><Signal className="size-10 text-net-primary" aria-hidden="true" /><p className="mt-8 font-heading text-3xl font-bold">Access without the runaround.</p><p className="mt-4 leading-7 text-white/80">Choose a voucher, pay in person, and use your code to get online. Contact MylesNet to confirm availability before you travel.</p><Link href="/coverage" className="mt-7 inline-flex items-center gap-2 font-bold text-white hover:text-net-primary">Check availability <ArrowRight className="size-4" aria-hidden="true" /></Link></aside></div></section>
-    <section className="mx-auto max-w-6xl px-5 py-16 sm:py-24"><SectionHeading eyebrow="A simpler connection" title="Everything you need to get online, clearly explained." centered /><div className="mt-10 grid gap-5 md:grid-cols-3">{problems.map(([title, description], index) => <article key={title} className="rounded-3xl border border-net-border bg-white p-6"><span className="font-heading text-4xl font-bold text-net-primary">0{index + 1}</span><h3 className="mt-5 font-heading text-xl font-bold text-net-accent">{title}</h3><p className="mt-3 leading-7 text-net-neutral-600">{description}</p></article>)}</div></section>
-    <section className="bg-net-accent px-5 py-16 sm:py-24"><div className="mx-auto max-w-6xl"><SectionHeading eyebrow="How it works" title="Connect in three simple steps." description="No online payment and no complicated setup." /><div className="mt-10 grid gap-6 md:grid-cols-3">{[[Router, "Connect", "Choose the MylesNet WiFi network. There is no password to remember."], [CircleDollarSign, "Pay in person", "Buy a voucher with cash or Airtel Money from the local MylesNet point."], [Smartphone, "Enter your code", "Use the voucher code, then browse, message, learn, and stay connected."]].map(([Icon, title, description], index) => { const StepIcon = Icon as typeof Router; return <div key={title as string} className="rounded-3xl bg-white p-6"><span className="flex size-10 items-center justify-center rounded-full bg-net-primary font-bold text-white">{index + 1}</span><StepIcon className="mt-7 size-9 text-net-primary" aria-hidden="true" /><h3 className="mt-5 font-heading text-xl font-bold text-net-accent">{title as string}</h3><p className="mt-3 leading-7 text-net-neutral-600">{description as string}</p></div>; })}</div></div></section>
-    <section className="mx-auto max-w-6xl px-5 py-16 sm:py-24"><div className="flex flex-wrap items-end justify-between gap-6"><SectionHeading eyebrow="Voucher packages" title="Choose the time that works for you." description="Pay in person by cash or Airtel Money. No online checkout." /><Link href="/pricing" className="inline-flex items-center gap-2 font-bold text-net-primary hover:text-net-primary-dark">Full pricing <ArrowRight className="size-4" aria-hidden="true" /></Link></div><div className="mt-10"><PricingCards limit={3} /></div></section>
-    <section className="bg-net-surface px-5 py-16 sm:py-24"><div className="mx-auto max-w-6xl"><div className="flex flex-wrap items-end justify-between gap-6"><SectionHeading eyebrow="Availability" title="Know before you go." description="Contact MylesNet for confirmed availability, current voucher guidance, and direct support." /><Link href="/coverage" className="inline-flex items-center gap-2 font-bold text-net-primary hover:text-net-primary-dark">Check availability <ArrowRight className="size-4" aria-hidden="true" /></Link></div><div className="mt-10"><CoverageMap /></div></div></section>
-    <section className="bg-white px-5 py-16 sm:py-24"><div className="mx-auto max-w-6xl"><SectionHeading eyebrow="Quick answers" title="What people often ask." /><div className="mt-8 grid gap-4 md:grid-cols-3">{[["Do I need to pay online?", "No. Pay in person by cash or Airtel Money when you get your voucher."], ["Is there a WiFi password?", "No. Connect to MylesNet, then enter your voucher code when prompted."], ["Can I get MylesNet in my market?", "Tell us where you need coverage. We are actively planning our next markets."]].map(([question, answer]) => <article key={question} className="rounded-2xl border border-net-border p-5"><h3 className="font-heading font-bold text-net-accent">{question}</h3><p className="mt-3 text-sm leading-6 text-net-neutral-600">{answer}</p></article>)}</div><Link href="/faq" className="mt-8 inline-flex items-center gap-2 font-bold text-net-primary hover:text-net-primary-dark">See all FAQs <ArrowRight className="size-4" aria-hidden="true" /></Link></div></section>
-    <section className="bg-net-primary px-5 py-14 text-white"><div className="mx-auto flex max-w-6xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-heading text-2xl font-bold">Need help getting online?</p><p className="mt-2 text-white/85">Call, WhatsApp, or use Airtel Money when you buy your voucher in person.</p></div><div className="flex flex-wrap gap-3"><a href={phoneUrl} className="rounded-xl bg-white px-5 py-3 font-bold text-net-accent hover:bg-net-surface">{contact.phone || "Call MylesNet"}</a><a href={whatsappUrl} className="rounded-xl border border-white px-5 py-3 font-bold text-white hover:bg-white/10">WhatsApp Us</a></div></div></section>
-  </>;
+  return (
+    <>
+      <section className="mn-home-hero">
+        <div className="mn-home-hero-inner">
+          <div className="mn-home-copy">
+            <p className="mn-home-eyebrow"><span aria-hidden="true" /> Local connectivity & installation</p>
+            <h1>Good connections <span>start here.</span></h1>
+            <p className="mn-home-intro">From market WiFi to planned home and business installations, get clear advice on what fits your place and what to do next.</p>
+            <div className="mn-home-actions">
+              <Link href="/internet" className="mn-button-primary">Explore internet <ArrowRight aria-hidden="true" /></Link>
+              <Link href="/where-we-are" className="mn-button-secondary"><MapPin aria-hidden="true" /> Check coverage</Link>
+            </div>
+            <p className="mn-home-caption">Local service information, with availability confirmed for your area.</p>
+          </div>
+
+          <div className="mn-connection-card" aria-label="MylesNet connects homes, businesses, and communities">
+            <div className="mn-connection-card-top"><span>MADE FOR YOUR CONNECTION</span><span className="mn-live-dot" aria-hidden="true" /></div>
+            <div className="mn-connection-art" aria-hidden="true">
+              <div className="mn-orbit mn-orbit-one" />
+              <div className="mn-orbit mn-orbit-two" />
+              <div className="mn-orbit mn-orbit-three" />
+              <div className="mn-link-line mn-link-home" />
+              <div className="mn-link-line mn-link-business" />
+              <div className="mn-link-line mn-link-community" />
+              <span className="mn-connection-node mn-node-home"><Home /></span>
+              <span className="mn-connection-node mn-node-business"><Building2 /></span>
+              <span className="mn-connection-node mn-node-community"><Wifi /></span>
+              <span className="mn-connection-center"><Wifi /></span>
+            </div>
+            <div className="mn-connection-card-bottom"><div><span>One local network</span><strong>Connecting communities, one mile at a time.</strong></div><Network aria-hidden="true" /></div>
+          </div>
+
+          <div className="mn-home-proof" aria-label="MylesNet service details">
+            <div><span className="mn-proof-icon"><MapPin aria-hidden="true" /></span><span><small>HOTSPOT MARKETS</small><strong>Tayari & Mundindi</strong></span></div>
+            <div><span className="mn-proof-icon"><Check aria-hidden="true" /></span><span><small>VOUCHER PAYMENT</small><strong>In person, in UGX</strong></span></div>
+            <div><span className="mn-proof-icon"><Network aria-hidden="true" /></span><span><small>INSTALLATIONS</small><strong>Planned around your site</strong></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mn-home-services" aria-labelledby="home-services-heading">
+        <div className="mn-home-section-head">
+          <div><p className="mn-section-eyebrow">HOW WE CAN HELP</p><h2 id="home-services-heading">One place to start.<br /><span>Clear paths to what you need.</span></h2></div>
+          <p>Choose a service to see how it works. We’ll confirm availability, requirements, and the next step with you.</p>
+        </div>
+        <div className="mn-service-grid">
+          {services.map((service) => {
+            const Icon = service.icon;
+            return <Link key={service.href} href={service.href} className="mn-service-card">
+              <div className="mn-service-card-top"><span className="mn-service-icon"><Icon aria-hidden="true" /></span><span className="mn-service-number">{service.number}</span></div>
+              <h3>{service.title}</h3>
+              <p>{service.text}</p>
+              <span className="mn-service-link">{service.action}<span aria-hidden="true"><ArrowRight /></span></span>
+            </Link>;
+          })}
+        </div>
+      </section>
+
+      <section className="mn-home-coverage">
+        <div className="mn-coverage-inner">
+          <div className="mn-coverage-copy">
+            <p className="mn-section-eyebrow">CHECK AVAILABILITY</p>
+            <h2>Start with your area.<br /><span>We’ll help with the rest.</span></h2>
+            <p>Hotspot access is currently confirmed in Tayari Market and Mundindi Market. Other locations and installation services need an area or site check first.</p>
+            <Link href="/where-we-are" className="mn-button-primary">See coverage details <ArrowRight aria-hidden="true" /></Link>
+          </div>
+          <div className="mn-coverage-panel">
+            <div className="mn-coverage-panel-head"><span className="mn-coverage-pin"><MapPin aria-hidden="true" /></span><div><small>CONFIRMED HOTSPOT MARKETS</small><strong>Busia District, Uganda</strong></div></div>
+            <div className="mn-market-row"><span><span className="mn-market-dot" />Tayari Market</span><span className="mn-market-status">Hotspot access</span></div>
+            <div className="mn-market-row"><span><span className="mn-market-dot" />Mundindi Market</span><span className="mn-market-status">Hotspot access</span></div>
+            <p>For home internet, installations, and other areas, availability is confirmed after a conversation or site review.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mn-home-next-step" aria-labelledby="mn-next-step-heading">
+        <div className="mn-next-step-heading"><p className="mn-section-eyebrow">A SIMPLE WAY FORWARD</p><h2 id="mn-next-step-heading">From your first question to a clear next step.</h2></div>
+        <div className="mn-next-steps">
+          <div><span>01</span><strong>Choose what you need</strong><p>Explore internet, installation, security, or network services.</p></div>
+          <div><span>02</span><strong>Share your area</strong><p>Tell us where you are and what you want to connect.</p></div>
+          <div><span>03</span><strong>Confirm the plan</strong><p>Check availability, requirements, and next steps with MylesNet.</p></div>
+        </div>
+        <Link href="/faq" className="mn-next-faq">Browse common questions <ArrowRight aria-hidden="true" /></Link>
+      </section>
+    </>
+  );
 }

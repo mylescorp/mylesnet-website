@@ -11,7 +11,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
         height={compact ? 48 : 80}
         priority
         sizes={compact ? "72px" : "120px"}
-        className={compact ? "h-9 w-auto object-contain" : "h-14 w-auto object-contain"}
+        className={compact ? "h-10 w-auto object-contain" : "h-14 w-auto object-contain"}
       />
     </Link>
   );

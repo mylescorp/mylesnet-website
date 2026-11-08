@@ -4,7 +4,11 @@ export const contact = {
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
   airtelMoneyNumber: process.env.NEXT_PUBLIC_AIRTEL_MONEY_NUMBER ?? "",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
 };
+
+export const centipidPortalUrl = process.env.NEXT_PUBLIC_CENTIPID_PORTAL_URL ?? "";
+export const portalEnabled = process.env.NEXT_PUBLIC_PORTAL_ENABLED === "true";
 
 export const whatsappUrl = contact.whatsappNumber
   ? `https://wa.me/${contact.whatsappNumber}`
@@ -13,10 +17,19 @@ export const whatsappUrl = contact.whatsappNumber
 export const phoneUrl = contact.phone ? `tel:${contact.phone.replace(/\s/g, "")}` : "/contact";
 
 export const navigation = [
-  { href: "/pricing", label: "Pricing" },
-  { href: "/coverage", label: "Coverage" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
+  { href: "/internet", label: "Internet" },
+  { href: "/where-we-are", label: "Coverage" },
+  { href: "/business-institutions", label: "Business & institutions" },
+  { href: "/cctv", label: "CCTV" },
+  { href: "/for-isps", label: "For ISPs" },
+  { href: "/support", label: "Support" },
+  { href: "/about", label: "About" },
+] as const;
+
+export const footerGroups = [
+  { title: "Internet", links: [{ href: "/internet", label: "Hotspot & home internet" }, { href: "/pricing", label: "Hotspot vouchers" }, { href: "/where-we-are", label: "Where we are" }, { href: "/support", label: "Customer support" }] },
+  { title: "Services", links: [{ href: "/business-institutions", label: "Business & institutions" }, { href: "/cctv", label: "CCTV installation" }, { href: "/for-isps", label: "MylesNet Managed" }, { href: "/partners", label: "Partners" }] },
+  { title: "Company", links: [{ href: "/about", label: "About MylesNet" }, { href: "/advertise", label: "Advertise with us" }, { href: "/faq", label: "FAQs" }] },
 ] as const;
 
 export const socialLinks = [

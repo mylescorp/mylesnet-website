@@ -1,27 +1,59 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Brand } from "@/components/brand";
-import { navigation, whatsappUrl } from "@/lib/site";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { centipidPortalUrl, portalEnabled } from "@/lib/site";
+
+const serviceLinks = [
+  { href: "/business-institutions", label: "Business & institutions" },
+  { href: "/cctv", label: "CCTV installation" },
+  { href: "/for-isps", label: "For ISPs" },
+  { href: "/partners", label: "Partners" },
+] as const;
 
 export function Header() {
-  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const [openPath, setOpenPath] = useState<string | null>(null);
+  const open = openPath === pathname;
+
+  const isCurrent = (href: string) => pathname === href || (href === "/internet" && pathname === "/pricing");
+  const linkClass = (href: string) => `mn-nav-link${isCurrent(href) ? " is-current" : ""}`;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-net-border/70 bg-net-neutral-50/95 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5">
-        <Brand compact />
-        <nav className="hidden items-center gap-6 md:flex" aria-label="Main navigation">
-          {navigation.map((item) => <Link key={item.href} href={item.href} className="text-sm font-semibold text-net-accent hover:text-net-primary">{item.label}</Link>)}
-          <a href={whatsappUrl} className="rounded-full bg-net-primary px-4 py-2 text-sm font-bold text-white hover:bg-net-primary-dark">WhatsApp Us</a>
+    <header className="mn-header">
+      <div className="mn-header-row">
+        <div className="mn-header-brand"><Brand compact /></div>
+
+        <nav id="main-navigation" key={pathname} className="mn-navigation" data-open={open} aria-label="Main navigation">
+          <Link href="/internet" className={linkClass("/internet")} aria-current={isCurrent("/internet") ? "page" : undefined} onClick={() => setOpenPath(null)}>Internet</Link>
+          <Link href="/where-we-are" className={linkClass("/where-we-are")} aria-current={isCurrent("/where-we-are") ? "page" : undefined} onClick={() => setOpenPath(null)}>Coverage</Link>
+          <details className={`mn-nav-group${serviceLinks.some((item) => isCurrent(item.href)) ? " is-current" : ""}`}>
+            <summary>Services <ChevronDown className="mn-nav-chevron" aria-hidden="true" /></summary>
+            <div className="mn-nav-submenu">
+              {serviceLinks.map((item) => <Link key={item.href} href={item.href} className={linkClass(item.href)} aria-current={isCurrent(item.href) ? "page" : undefined} onClick={() => setOpenPath(null)}>{item.label}</Link>)}
+            </div>
+          </details>
+          <Link href="/support" className={linkClass("/support")} aria-current={isCurrent("/support") ? "page" : undefined} onClick={() => setOpenPath(null)}>Support</Link>
+          <Link href="/about" className={linkClass("/about")} aria-current={isCurrent("/about") ? "page" : undefined} onClick={() => setOpenPath(null)}>About</Link>
         </nav>
-        <button type="button" className="rounded-lg p-2 text-net-accent md:hidden" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
-          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
-        </button>
+
+        {portalEnabled || centipidPortalUrl ? <div className="mn-account-actions" data-open={open} aria-label="Account access">
+          {portalEnabled ? <Link href="/portal" className="mn-account-link" onClick={() => setOpenPath(null)}>Organization portal</Link> : null}
+          {centipidPortalUrl ? <a href={centipidPortalUrl} target="_blank" rel="noopener noreferrer" className="mn-account-link" onClick={() => setOpenPath(null)}>Hotspot customer access<span className="sr-only"> (opens in a new tab)</span></a> : null}
+        </div> : null}
+
+        <div className="mn-header-actions">
+          <Link href="/contact" className="mn-header-cta">Contact us</Link>
+          <ThemeToggle />
+          <button type="button" className="mn-menu-toggle" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="main-navigation" onClick={() => setOpenPath(open ? null : pathname)}>
+            {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </button>
+        </div>
       </div>
-      {open ? <nav className="border-t border-net-border bg-white px-5 py-4 md:hidden" aria-label="Mobile navigation">{navigation.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 font-semibold text-net-accent hover:bg-net-surface">{item.label}</Link>)}<a href={whatsappUrl} className="mt-2 block rounded-lg bg-net-primary px-3 py-3 text-center font-bold text-white">WhatsApp Us</a></nav> : null}
     </header>
   );
 }
