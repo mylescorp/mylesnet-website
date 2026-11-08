@@ -39,9 +39,12 @@ export function Header() {
           </details>
           <Link href="/support" className={linkClass("/support")} aria-current={isCurrent("/support") ? "page" : undefined} onClick={() => setOpenPath(null)}>Support</Link>
           <Link href="/about" className={linkClass("/about")} aria-current={isCurrent("/about") ? "page" : undefined} onClick={() => setOpenPath(null)}>About</Link>
-          {portalEnabled ? <Link href="/portal" className={linkClass("/portal")} aria-current={isCurrent("/portal") ? "page" : undefined} onClick={() => setOpenPath(null)}>Portal</Link> : null}
-          {centipidPortalUrl ? <a href={centipidPortalUrl} target="_blank" rel="noopener noreferrer" className="mn-nav-link" onClick={() => setOpenPath(null)}>Customer access<span className="sr-only"> (opens in a new tab)</span></a> : null}
         </nav>
+
+        {portalEnabled || centipidPortalUrl ? <div className="mn-account-actions" data-open={open} aria-label="Account access">
+          {portalEnabled ? <Link href="/portal" className="mn-account-link" onClick={() => setOpenPath(null)}>Organization portal</Link> : null}
+          {centipidPortalUrl ? <a href={centipidPortalUrl} target="_blank" rel="noopener noreferrer" className="mn-account-link" onClick={() => setOpenPath(null)}>Hotspot customer access<span className="sr-only"> (opens in a new tab)</span></a> : null}
+        </div> : null}
 
         <div className="mn-header-actions">
           <Link href="/contact" className="mn-header-cta">Contact us</Link>
