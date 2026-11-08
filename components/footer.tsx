@@ -6,7 +6,7 @@ import { contact, footerGroups, phoneUrl, socialLinks, whatsappUrl } from "@/lib
 const socialIcons = { LinkedIn: Linkedin, Facebook, Twitter, YouTube: Youtube, Instagram, TikTok: Music2 } as const;
 
 export function Footer() {
-  return <footer className="border-t border-net-border bg-net-surface">
+  return <footer className="border-t border-net-border bg-net-accent-dark">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:px-6 lg:grid-cols-[1.3fr_2fr_1fr] lg:px-8 lg:py-16">
       <div><Brand compact /><p className="mt-4 max-w-sm text-sm leading-6 text-net-footer-text/75">Internet access, local installation, and network services with clear next steps.</p><div className="mt-5 flex gap-2">{socialLinks.map((social) => { const Icon = socialIcons[social.label]; return <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={`Follow MylesCorp on ${social.label}`} className="flex size-10 items-center justify-center rounded-full border border-net-footer-text/20 text-net-footer-text/80 hover:border-net-primary hover:bg-net-primary hover:text-net-on-action"><Icon className="size-4" aria-hidden="true" /></a>; })}</div></div>
       <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">{footerGroups.map((group) => <div key={group.title}><h2 className="font-heading text-sm font-bold uppercase tracking-wider text-net-footer-text/65">{group.title}</h2><div className="mt-4 grid gap-3">{group.links.map((link) => <Link key={link.href} href={link.href} className="text-sm text-net-footer-text/80 hover:text-net-primary">{link.label}</Link>)}</div></div>)}</div>

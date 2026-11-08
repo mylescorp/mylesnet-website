@@ -96,8 +96,12 @@ export async function POST(request: NextRequest) {
         subject: `MylesNet ${lead.source.replaceAll("-", " ")}`,
         text: `Name: ${lead.name}\nPhone: ${lead.phone}\nLocation: ${lead.location}\nOrganization: ${lead.organization || "Not supplied"}\nService: ${lead.service || "Not supplied"}\nTimeline: ${lead.timeline || "Not supplied"}\nSource: ${lead.source}\n\nMessage:\n${lead.message}`,
       });
-      if (result.error) console.error("MylesNet lead saved, but the email notification failed.");
+      if (result.error) {
+        if (!convexResult.configured) return clearCsrfCookie(json(503, "We could not deliver your message right now. Please use WhatsApp or call us instead."), configuration);
+        console.error("MylesNet lead saved, but the email notification failed.");
+      }
     } catch {
+      if (!convexResult.configured) return clearCsrfCookie(json(503, "We could not deliver your message right now. Please use WhatsApp or call us instead."), configuration);
       console.error("MylesNet lead saved, but the email notification failed.");
     }
   } else if (!convexResult.configured) {

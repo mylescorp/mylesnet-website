@@ -24,9 +24,13 @@ export function ThemeToggle() {
   function toggle() {
     const next = theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
-    window.localStorage.setItem("mylesnet-theme", next);
+    try {
+      window.localStorage.setItem("mylesnet-theme", next);
+    } catch {
+      // Keep theme switching available when browser storage is blocked.
+    }
     document.dispatchEvent(new Event("mylesnet-theme-change"));
   }
 
-  return <button type="button" onClick={toggle} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`} title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`} className="flex size-11 shrink-0 items-center justify-center rounded-lg border border-net-border bg-net-neutral-50 text-net-accent hover:bg-net-surface">{theme === "dark" ? <Sun className="size-5" aria-hidden="true" /> : <Moon className="size-5" aria-hidden="true" />}</button>;
+  return <button type="button" onClick={toggle} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`} title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`} className="flex size-12 shrink-0 items-center justify-center rounded-lg border border-net-border bg-net-neutral-50 text-net-accent hover:bg-net-surface">{theme === "dark" ? <Sun className="size-5" aria-hidden="true" /> : <Moon className="size-5" aria-hidden="true" />}</button>;
 }

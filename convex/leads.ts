@@ -53,8 +53,10 @@ export const listUnassignedForStaff = query({
     const { organization } = await requirePermission(ctx, args.organizationId, "leads.read");
     if (organization.type !== "internal") throw new Error("Forbidden");
     const limit = Math.max(1, Math.min(args.limit ?? 50, 100));
-    const candidates = await ctx.db.query("leads").withIndex("by_created_at").order("desc").take(100);
-    return candidates.filter((lead) => !lead.organizationId).slice(0, limit);
+    return await ctx.db.query("leads")
+      .withIndex("by_org_and_created_at", (q) => q.eq("organizationId", undefined))
+      .order("desc")
+      .take(limit);
   },
 });
 

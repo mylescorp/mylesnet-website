@@ -39,7 +39,7 @@ This repository serves the MylesNet public website and is being expanded into a 
 
 ## Environment gates
 
-- Public enquiry persistence requires `NEXT_PUBLIC_CONVEX_URL`, matching `CONTACT_API_SECRET` values in Next.js and Convex, and the deployed `/public/contact` Convex HTTP action.
+- Public enquiry persistence requires `CONVEX_SITE_URL`, matching `CONTACT_API_SECRET` values in Next.js and Convex, and the deployed `/public/contact` Convex HTTP action. The portal Convex client separately uses `NEXT_PUBLIC_CONVEX_URL`.
 - Notifications require `RESEND_API_KEY`, `CONTACT_RECIPIENT_EMAIL`, and `CONTACT_FROM_EMAIL`.
 - WorkOS portal sign-in requires WorkOS application credentials, cookie password, configured redirect/callback URLs, and a matching Convex JWT provider configuration.
 - The public Centipid link and MylesNet portal navigation remain hidden unless their confirmed URLs/configuration are set.
